@@ -1,12 +1,13 @@
 import React from 'react'
-import Login from './Login'
 import Signup from './Signup'
+import Login from './Login'
 
-const Authentication = () => {
+const Authentication = ({auth, authenticate}) => {
+  
   return (
     <div className="d-flex justify-content-center flex-column align-items-center">
-        {/* <Login /> */}
-        <Signup />
+        {auth ? <Signup authenticate={authenticate}/> : 
+        <Login authenticate={authenticate}/>}
     </div>
   )
 }

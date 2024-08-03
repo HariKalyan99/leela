@@ -1,6 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const Signup = () => {
+const Signup = ({authenticate}) => {
   return (
     <form className='d-flex flex-column justify-content-center align-items-center wrapper' >
     <h1 style={{fontSize: "4rem"}}>Signup</h1>
@@ -19,7 +20,7 @@ const Signup = () => {
 
 
     <button type='submit' className='btn btn-dark m-3'>Signup</button>
-    <a href="#" style={{textDecoration: "none"}} className='text-black fw-bold'>Not registered, <span style={{textDecoration: "underline"}}>Register</span></a>
+    <Link to={"/Login"} style={{textDecoration: "none"}} className='text-black fw-bold' onClick={authenticate}>Already registered, <span style={{textDecoration: "underline"}}>Login</span></Link>
     </form>
   )
 }
