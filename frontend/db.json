@@ -1,5 +1,11 @@
 {
-    "users": [
-    
-    ]
+  "users": [
+    {
+      "id": "6427",
+      "username": "hello",
+      "fullname": "hello world",
+      "email": "hello@gmail.com",
+      "password": "123456"
+    }
+  ]
 }

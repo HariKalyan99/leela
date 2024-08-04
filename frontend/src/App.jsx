@@ -1,16 +1,69 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Authentication from "./components/Authentication";
+import axios from 'axios';
 
 function App() {
-
   const [auth, setAuth] = useState(true);
+  const [authSignup, setAuthSignup] = useState("");
+  const [authLogin, setAuthLogin] = useState("");
 
+  useEffect(() => {
+    const userSignup = async(user) => {
+      try {
+        const {data} = await axios.post(`http://localhost:3000/users`, {
+          ...user
+        })
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    if(authSignup?.username?.length > 1){
+      userSignup(authSignup)
+    }
+  }, [authSignup]);
+
+  useEffect(() => {
+    const userLogin = async(user) => {
+      try {
+        const {data} = await axios.get(`http://localhost:3000/users`);
+        if(data.find(x => x.email === user?.email && x.password === user?.password)){
+          alert("Logged in")
+        }else{
+          alert("Incorrect email or password")
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    if(authLogin?.email?.length > 1){
+      userLogin(authLogin);
+    }
+  }, [authLogin])
+
+  const newUserSignup = (user) => {
+    setAuthSignup(user)
+  };
+
+  const newUserLogin = (user) => {
+    setAuthLogin(user);
+  };
+  
   const authenticate = () => {
-    setAuth(!auth)
-  }
+    setAuth(!auth);
+  };
   return (
-    <div className="d-flex justify-content-center align-items-center" >
-      {<Authentication auth={auth} authenticate={authenticate}/>}
+    <div className="d-flex justify-content-center align-items-center">
+      {
+        <Authentication
+          auth={auth}
+          authenticate={authenticate}
+          newUserSignup={newUserSignup}
+          newUserLogin={newUserLogin}
+        />
+      }
     </div>
   );
 }
