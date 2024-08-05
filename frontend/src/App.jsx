@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import Authentication from "./components/Authentication";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 function App() {
+
+  const navigate = useNavigate();
   const [auth, setAuth] = useState(true);
   const [authSignup, setAuthSignup] = useState("");
   const [authLogin, setAuthLogin] = useState("");
@@ -13,7 +16,8 @@ function App() {
         const {data} = await axios.post(`http://localhost:3000/users`, {
           ...user
         })
-        console.log(data);
+        setAuth(!auth)
+        navigate("/login")
       } catch (error) {
         console.log(error);
       }
@@ -29,6 +33,7 @@ function App() {
       try {
         const {data} = await axios.get(`http://localhost:3000/users`);
         if(data.find(x => x.email === user?.email && x.password === user?.password)){
+          localStorage.setItem("userToken", JSON.stringify({id: data.find(x => x.email === user?.email).id}))
           alert("Logged in")
         }else{
           alert("Incorrect email or password")
