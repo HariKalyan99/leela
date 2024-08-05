@@ -97,7 +97,7 @@ const Signup = ({ authenticate, newUserSignup }) => {
         to={"/login"}
         style={{ textDecoration: "none" }}
         className="text-black fw-bold"
-        onClick={authenticate}
+        onClick={() => authenticate("login")}
       >
         Already registered,{" "}
         <span style={{ textDecoration: "underline" }}>Login</span>

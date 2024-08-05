@@ -7,7 +7,7 @@ const Authentication = ({auth, authenticate, newUserSignup,
   
   return (
     <div className="d-flex justify-content-center flex-column align-items-center">
-        {auth ? <Signup authenticate={authenticate} newUserSignup={newUserSignup}/> : 
+        {auth === "signup" ? <Signup authenticate={authenticate} newUserSignup={newUserSignup}/> : 
         <Login authenticate={authenticate} newUserLogin={newUserLogin}/>}
     </div>
   )

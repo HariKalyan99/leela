@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import Authentication from "./components/Authentication";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import Dashboard from "./components/Dashboard";
 
 function App() {
 
   const navigate = useNavigate();
-  const [auth, setAuth] = useState(true);
+  const [auth, setAuth] = useState("");
   const [authSignup, setAuthSignup] = useState("");
   const [authLogin, setAuthLogin] = useState("");
 
@@ -16,7 +17,7 @@ function App() {
         const {data} = await axios.post(`http://localhost:3000/users`, {
           ...user
         })
-        setAuth(!auth)
+        setAuth("login")
         navigate("/login")
       } catch (error) {
         console.log(error);
@@ -34,7 +35,8 @@ function App() {
         const {data} = await axios.get(`http://localhost:3000/users`);
         if(data.find(x => x.email === user?.email && x.password === user?.password)){
           localStorage.setItem("userToken", JSON.stringify({id: data.find(x => x.email === user?.email).id}))
-          alert("Logged in")
+          setAuth("dashboard")
+          navigate("/dashboard")
         }else{
           alert("Incorrect email or password")
         }
@@ -56,18 +58,18 @@ function App() {
     setAuthLogin(user);
   };
   
-  const authenticate = () => {
-    setAuth(!auth);
+  const authenticate = (val) => {
+    setAuth(val);
   };
   return (
     <div className="d-flex justify-content-center align-items-center">
       {
-        <Authentication
-          auth={auth}
-          authenticate={authenticate}
-          newUserSignup={newUserSignup}
-          newUserLogin={newUserLogin}
-        />
+        auth === "dashboard" ? <Dashboard authenticate={authenticate} auth={auth} /> : <Authentication
+        auth={auth}
+        authenticate={authenticate}
+        newUserSignup={newUserSignup}
+        newUserLogin={newUserLogin}
+      />
       }
     </div>
   );
