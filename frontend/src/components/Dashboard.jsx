@@ -1,9 +1,10 @@
 import React from 'react'
+import Headers from './Headers';
 
 const Dashboard = ({authenticate, auth}) => {
   return (
     <div>
-      <h1>Hello</h1>
+      <Headers />
     </div>
   )
 }

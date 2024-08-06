@@ -62,14 +62,14 @@ function App() {
     setAuth(val);
   };
   return (
-    <div className="d-flex justify-content-center align-items-center">
+    <div>
       {
-        auth === "dashboard" ? <Dashboard authenticate={authenticate} auth={auth} /> : <Authentication
+        auth === "dashboard" ? <Dashboard authenticate={authenticate} auth={auth} /> : <div className="d-flex justify-content-center align-items-center"><Authentication
         auth={auth}
         authenticate={authenticate}
         newUserSignup={newUserSignup}
         newUserLogin={newUserLogin}
-      />
+      /></div>
       }
     </div>
   );
