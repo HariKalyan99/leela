@@ -1,7 +1,6 @@
 *{
   padding: 0;margin: 0;
   box-sizing: border-box;
-  height: 100%;
 }
 
 .parent-wrapper {
@@ -10,6 +9,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  height: 100vh;
 }
 
 .wrapper {

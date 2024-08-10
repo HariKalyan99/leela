@@ -4,7 +4,7 @@ import Headers from './Headers';
 const Dashboard = ({authenticate, auth}) => {
   return (
     <div>
-      <Headers />
+      <Headers authenticate={authenticate} auth={auth}/>
     </div>
   )
 }
