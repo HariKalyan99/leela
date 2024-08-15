@@ -129,7 +129,7 @@ const Signup = ({ authenticate, newUserSignup }) => {
         {isPending ? "Loading..." : "Signup"}
       </button>
       
-      {isError && <p>{error.message}</p>}
+      {isError && <p className="text-danger">{error.message}</p>}
       <Link
         to={"/login"}
         style={{ textDecoration: "none" }}

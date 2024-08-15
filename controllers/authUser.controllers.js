@@ -71,8 +71,10 @@ export const authUserLogin = async(request, response) => {
         const isPasswordCorrect = await bcrypt.compare(password, userExists?.password || "")
         
 
-        if(!isPasswordCorrect || !userExists){
-            return response.status(400).json({error: "Invalid credentials"})
+        if(!userExists){
+            return response.status(400).json({error: "Invalid email or username"})
+        }else if(!isPasswordCorrect){
+            return response.status(400).json({error: "Invalid password"})
         }
 
         generateTokenAndSetCookie(userExists._id, response);

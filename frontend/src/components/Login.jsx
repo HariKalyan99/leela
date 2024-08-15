@@ -1,14 +1,44 @@
+import { useMutation } from "@tanstack/react-query";
 import React, { useRef } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 const Login = ({ authenticate, newUserLogin }) => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
+
+  const {mutate: loginFn, isPending, isError, error } = useMutation({
+    mutationFn: async({username, password}) => {
+      try {
+        const res = await fetch(`http://127.0.0.1:8081/auth/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username, password
+          })
+        })
+        const data = await res.json();
+        console.log(data)
+        if(!res.ok) throw new Error(data.error || "Failed Logging in");
+      } catch (error) {
+        throw error        
+      }
+    },
+    onSuccess: () => {
+      toast.success("Logged in successfully");
+    },
+    onError: (error) => {
+      
+      toast.error(error.message)
+    } 
+  }) 
   const handleSubmit = (e) => {
     e.preventDefault();
     const username = emailRef.current.value;
     const password = passwordRef.current.value;
-    newUserLogin({ username, password });
+    loginFn({ username, password });
   };
   return (
     <form
@@ -52,8 +82,9 @@ const Login = ({ authenticate, newUserLogin }) => {
       />
 
       <button type="submit" className="btn btn-dark m-3">
-        Login
+        {isPending ? "Loading.." : "Login"}
       </button>
+      {isError && <p className="text-danger">{error.message}</p>}
       <Link
         to={"/"}
         style={{ textDecoration: "none" }}
