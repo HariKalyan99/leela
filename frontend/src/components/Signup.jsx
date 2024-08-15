@@ -1,18 +1,53 @@
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = ({ authenticate, newUserSignup }) => {
   const usernameRef = useRef("");
   const fullnameRef = useRef("");
   const emailRef = useRef("");
   const passwordRef = useRef("");
+
+  const navigate = useNavigate()
+
+  const {mutate, isError, isPending, error} = useMutation({
+    mutationFn: async({ username, fullname, email, password }) => {
+      try {
+        const res = await fetch('http://127.0.0.1:8081/auth/signup', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            username, fullname, email, password
+          })
+        })
+        const data = await res.json();
+        if(!res.ok) throw new Error(data.message || "Failed to create account");
+        authenticate("login");
+        navigate("/login")
+      } catch (error) { 
+        console.error(error);
+        throw error
+      }
+    },
+    onSuccess: () => {
+      toast.success("Account created successfully")
+    },
+    onError: (error) => {
+      toast.error(error.message)
+    } 
+  })
   const handleSubmit = (e) => {
     e.preventDefault();
     const username = usernameRef.current.value;
     const fullname = fullnameRef.current.value;
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    newUserSignup({ username, fullname, email, password });
+    mutate({ username, fullname, email, password })
+    // newUserSignup({ username, fullname, email, password });
   };
 
   return (
@@ -91,8 +126,10 @@ const Signup = ({ authenticate, newUserSignup }) => {
       />
 
       <button type="submit" className="btn btn-dark m-3">
-        Signup
+        {isPending ? "Loading..." : "Signup"}
       </button>
+      
+      {isError && <p>{error.message}</p>}
       <Link
         to={"/login"}
         style={{ textDecoration: "none" }}

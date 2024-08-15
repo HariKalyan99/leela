@@ -6,9 +6,9 @@ const Login = ({ authenticate, newUserLogin }) => {
   const passwordRef = useRef("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    const email = emailRef.current.value;
+    const username = emailRef.current.value;
     const password = passwordRef.current.value;
-    newUserLogin({ email, password });
+    newUserLogin({ username, password });
   };
   return (
     <form
@@ -19,8 +19,8 @@ const Login = ({ authenticate, newUserLogin }) => {
       <br />
       <br />
       <input
-        type="email"
-        placeholder="email"
+        type="text"
+        placeholder="username or email"
         style={{
           width: "300px",
           height: "40px",

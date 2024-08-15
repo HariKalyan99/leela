@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -5,8 +6,7 @@ const Headers = ({authenticate, auth}) => {
   const navigate = useNavigate();
 
 
-  const handleLogout = () => {
-    localStorage.clear();
+  const handleLogout = async() => {
     authenticate("logout")
     navigate(-1);
   }
@@ -33,7 +33,7 @@ const Headers = ({authenticate, auth}) => {
 
         <div class="text-end">
           <button type="button" class="btn btn-outline-light me-2" onClick={handleLogout}>Logout</button>
-          {!JSON.parse(localStorage.getItem("userToken")) && <button type="button" class="btn btn-warning" onClick={() => authenticate("signup")}>Sign-up</button>}
+          {/* {!JSON.parse(localStorage.getItem("userToken")) && <button type="button" class="btn btn-warning" onClick={() => authenticate("signup")}>Sign-up</button>} */}
         </div>
       </div>
     </div>

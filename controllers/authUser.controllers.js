@@ -20,7 +20,7 @@ export const authUserSignup = async (request, response) => {
         
         const usernameExists = await AuthUserModel.findOne({username});
         if(usernameExists){
-            return response.status(400).json({error: "username already taken"})
+            return response.status(400).json({message: "username already taken"})
         }
 
 
@@ -86,6 +86,16 @@ export const authUserLogin = async(request, response) => {
 
     } catch (error) {
         console.log("Error in authUserLogin constroller", error.message);
+        return response.status(500).json({error: "Internal server error"})
+    }
+} 
+
+export const getMe = async(request, response) => {
+    try {
+        const user = await AuthUserModel.findById(request.user._id).select("-password");
+        return response.status(200).json(user);
+    } catch (error) {
+        console.log("Error in the getMe controller", error.message);
         return response.status(500).json({error: "Internal server error"})
     }
 } 
