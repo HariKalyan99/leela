@@ -6,11 +6,10 @@ export const validateAuthorization = async(request, response, next) => {
         const token = request.cookies.jwt;
 
         if(!token){
-            return response.status(404).json({error: "Unaithorized: No token provided"})
+            return response.status(404).json({error: "Unauthorized: No token provided"})
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-        console.log(decoded)
 
         if(!decoded){
             return response.status(401).json({message: "Unauthorized: Invalid Token"})

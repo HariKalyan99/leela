@@ -1,12 +1,14 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useRef } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = ({ authenticate, newUserLogin }) => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
+  const navigate = useNavigate();
 
+  const queryClient = useQueryClient();
   const {mutate: loginFn, isPending, isError, error } = useMutation({
     mutationFn: async({username, password}) => {
       try {
@@ -17,20 +19,23 @@ const Login = ({ authenticate, newUserLogin }) => {
           },
           body: JSON.stringify({
             username, password
-          })
+          }),
+          credentials: "include"
         })
         const data = await res.json();
-        console.log(data)
         if(!res.ok) throw new Error(data.error || "Failed Logging in");
+        authenticate("dashboard");
+        navigate("/dashboard")
       } catch (error) {
         throw error        
       }
     },
     onSuccess: () => {
       toast.success("Logged in successfully");
+      queryClient.invalidateQueries({queryKey: ["authUser"]})
+      
     },
     onError: (error) => {
-      
       toast.error(error.message)
     } 
   }) 

@@ -4,13 +4,19 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import { Toaster } from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
+
 
 function App() {
 
   const navigate = useNavigate();
-  const [auth, setAuth] = useState("");
+  const [auth, setAuth] = useState("signup");
   const [authSignup, setAuthSignup] = useState("");
   const [authLogin, setAuthLogin] = useState("");
+
+
+  
+  
 
   // useEffect(() => {
   //   const userSignup = async(user) => {

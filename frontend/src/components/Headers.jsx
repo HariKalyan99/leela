@@ -1,14 +1,40 @@
+import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import React from 'react'
+import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Headers = ({authenticate, auth}) => {
   const navigate = useNavigate();
 
+  const {mutate: logoutFn, isPending, isError, error} = useMutation({
+    mutationFn: async() => {
+      try {
+        const res = await fetch('http://127.0.0.1:8081/auth/logout', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        })
+
+        const data = await res.json();
+        if(!res.ok) throw new Error(data.error || "Something went wrong");
+        authenticate("logout")
+        navigate(-1);
+      } catch (error) {
+        console.log(error);
+        throw new error;
+      }
+    }, onSuccess: () => {
+      toast.success("Logged out successfull")
+    },onError: () => {
+			toast.error('Logout failed')
+		}
+  })
+
 
   const handleLogout = async() => {
-    authenticate("logout")
-    navigate(-1);
+    logoutFn()
   }
   return (
     <div>
@@ -32,7 +58,7 @@ const Headers = ({authenticate, auth}) => {
         </form>
 
         <div class="text-end">
-          <button type="button" class="btn btn-outline-light me-2" onClick={handleLogout}>Logout</button>
+          <button type="button" class="btn btn-outline-light me-2" onClick={handleLogout}>{isPending ? "loading..." : "Logout"}</button>
           {/* {!JSON.parse(localStorage.getItem("userToken")) && <button type="button" class="btn btn-warning" onClick={() => authenticate("signup")}>Sign-up</button>} */}
         </div>
       </div>

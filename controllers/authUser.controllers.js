@@ -46,6 +46,8 @@ export const authUserSignup = async (request, response) => {
         })
 
         if(newUser){
+            generateTokenAndSetCookie(newUser._id, response);
+
             await newUser.save();
             return response.status(200).json({
                 username: newUser.username,
@@ -88,6 +90,16 @@ export const authUserLogin = async(request, response) => {
 
     } catch (error) {
         console.log("Error in authUserLogin constroller", error.message);
+        return response.status(500).json({error: "Internal server error"})
+    }
+} 
+
+export const authUserLogout = (request, response) => {
+    try {
+        response.cookie("jwt", "", {maxAge: 0});
+        response.status(200).json({message: "Logged out successfully"})
+    } catch (error) {
+        console.log("Error in authUserLogout constroller", error.message);
         return response.status(500).json({error: "Internal server error"})
     }
 } 

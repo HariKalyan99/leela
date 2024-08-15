@@ -1,10 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Headers from './Headers';
+import { useQuery } from '@tanstack/react-query';
 
 
 const Dashboard = ({authenticate, auth}) => {
+  const {data: authUser, isLoading, error, isError} = useQuery({
+    queryKey: ['authUser'],
+    queryFn: async() => {
+      try {
+        const res = await fetch('http://127.0.0.1:8081/auth/me');
+        const data = await res.json();
+        console.log(data);
+        if(data.error) return null
+
+        if(!res.ok) throw new Error(data.error || "Something went wrong");
+        return data
+      } catch (error) {
+        console.log(error);
+        throw new Error(error)
+      }
+    }
+  })
+
   return (
-    <div >
+    <>
+      {authUser ? <div>
       <Headers authenticate={authenticate} auth={auth}/>
       <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style={{"width": "280px", height : "100vh"}}>
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
@@ -59,7 +79,8 @@ const Dashboard = ({authenticate, auth}) => {
       </ul>
     </div>
   </div>
-    </div>
+    </div> : <h1> Loading... </h1>}
+    </>
   )
 }
 
