@@ -12,7 +12,7 @@ const Login = ({ authenticate, newUserLogin }) => {
   const {mutate: loginFn, isPending, isError, error } = useMutation({
     mutationFn: async({username, password}) => {
       try {
-        const res = await fetch(`http://127.0.0.1:8081/auth/login`, {
+        const res = await fetch(`/api/auth/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -8,12 +8,11 @@ import authUserRoutes from './routes/authUser.routes.js';
 const app = express();
 
 
-app.use(cors({origin: "http://localhost:3000",
-    credentials: true}));
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser())
-app.use("/auth", authUserRoutes);
+app.use("/api/auth", authUserRoutes);
 
 
 app.listen(process.env.PORT, () => {

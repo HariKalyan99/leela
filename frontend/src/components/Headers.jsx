@@ -10,7 +10,7 @@ const Headers = ({authenticate, auth}) => {
   const {mutate: logoutFn, isPending, isError, error} = useMutation({
     mutationFn: async() => {
       try {
-        const res = await fetch('http://127.0.0.1:8081/auth/logout', {
+        const res = await fetch('/api/auth/logout', {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

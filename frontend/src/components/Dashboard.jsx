@@ -8,7 +8,7 @@ const Dashboard = ({authenticate, auth}) => {
     queryKey: ['authUser'],
     queryFn: async() => {
       try {
-        const res = await fetch('http://127.0.0.1:8081/auth/me');
+        const res = await fetch('/api/auth/me');
         const data = await res.json();
         console.log(data);
         if(data.error) return null

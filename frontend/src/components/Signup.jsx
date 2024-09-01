@@ -15,7 +15,7 @@ const Signup = ({ authenticate, newUserSignup }) => {
   const {mutate, isError, isPending, error} = useMutation({
     mutationFn: async({ username, fullname, email, password }) => {
       try {
-        const res = await fetch('http://127.0.0.1:8081/auth/signup', {
+        const res = await fetch('/api/auth/signup', {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
