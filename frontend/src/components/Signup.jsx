@@ -55,7 +55,7 @@ const Signup = ({ authenticate, newUserSignup }) => {
       className="d-flex flex-column justify-content-center align-items-center wrapper"
       onSubmit={(e) => handleSubmit(e)}
     >
-      <h1 style={{ fontSize: "4rem" }}>Signup</h1>
+      <h1 style={{ fontSize: "4rem", color:"white" }}>Signup</h1>
       <br />
       <br />
       <input
@@ -70,7 +70,7 @@ const Signup = ({ authenticate, newUserSignup }) => {
           background: "transparent",
           color: "white",
         }}
-        className="p-3 fs-5"
+        className="p-3 fs-3"
         ref={usernameRef}
       />
 
@@ -87,7 +87,7 @@ const Signup = ({ authenticate, newUserSignup }) => {
           background: "transparent",
           color: "white",
         }}
-        className="p-3 fs-5"
+        className="p-3 fs-3"
         ref={fullnameRef}
       />
 
@@ -104,7 +104,7 @@ const Signup = ({ authenticate, newUserSignup }) => {
           background: "transparent",
           color: "white",
         }}
-        className="p-3 fs-5"
+        className="p-3 fs-3"
         ref={emailRef}
       />
 
@@ -121,7 +121,7 @@ const Signup = ({ authenticate, newUserSignup }) => {
           background: "transparent",
           color: "white",
         }}
-        className="p-3 fs-5"
+        className="p-3 fs-3"
         ref={passwordRef}
       />
 

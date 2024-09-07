@@ -4,8 +4,8 @@
 }
 
 .parent-wrapper {
-  background-image: url("https://www.lifewire.com/thmb/CLI14Ku63Uujk5VlROmhN67G-3I=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/wallhaven-5919d60a5f9b58f4c04e8b26.png");
-  /* Center and scale the image nicely */
+  background-image: url("https://cdnb.artstation.com/p/assets/images/images/055/215/327/large/saiyre-illustration-amp-design-gemini.jpg?1666386058");
+  /* Center and scale the image properly */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -15,16 +15,15 @@
 .wrapper {
   width: 400px;
   background: transparent;
-  border: 1px solid rgb(255, 255, 255);
   padding: 10px;
   height: auto;
   border-radius: 20px;
-  box-shadow: 1px 1px 20px 10px rgb(255, 255, 255);
+  box-shadow: 1px 1px 20px 10px rgb(231, 188, 70);
   color: black;
 }
 
   ::placeholder {
-    color: rgb(3, 16, 73);
+    color: rgb(255, 255, 255);
     opacity: 1; /* Firefox */
   }
   
