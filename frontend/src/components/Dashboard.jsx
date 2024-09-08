@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Headers from './Headers';
 import { useQuery } from '@tanstack/react-query';
+import { ContactUs } from './ContactUs';
 
 
 const Dashboard = ({authenticate, auth}) => {
@@ -26,7 +27,11 @@ const Dashboard = ({authenticate, auth}) => {
   return (
     <>
       {authUser ? <div className='db'>
-      <Headers authenticate={authenticate} auth={auth}/> </div> : <h1> Loading... </h1>}
+      <Headers authenticate={authenticate} auth={auth}/>
+      <div>
+        <ContactUs />
+        </div> 
+       </div> : <h1> Loading... </h1>}
     </>
   )
 }
