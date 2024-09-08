@@ -25,7 +25,7 @@ const Dashboard = ({authenticate, auth}) => {
 
   return (
     <>
-      {authUser ? <div>
+      {authUser ? <div className='db'>
       <Headers authenticate={authenticate} auth={auth}/> </div> : <h1> Loading... </h1>}
     </>
   )
