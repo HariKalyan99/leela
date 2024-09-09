@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Headers from './Headers';
 import { useQuery } from '@tanstack/react-query';
 import { ContactUs } from './ContactUs';
+import Example from './Example';
 
 
 const Dashboard = ({authenticate, auth}) => {
@@ -30,6 +31,7 @@ const Dashboard = ({authenticate, auth}) => {
       <Headers authenticate={authenticate} auth={auth}/>
       <div>
         <ContactUs />
+        <Example />
         </div> 
        </div> : <h1> Loading... </h1>}
     </>
