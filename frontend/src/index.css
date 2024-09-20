@@ -3,9 +3,16 @@
   box-sizing: border-box;
 }
 
+
+body{background: rgb(0,0,0);
+  background: linear-gradient(90deg, rgba(0,0,0,1) 4%, rgba(225,146,56,1) 73%);
+}
+
 .parent-wrapper {
-  background-image: url("https://cdnb.artstation.com/p/assets/images/images/055/215/327/large/saiyre-illustration-amp-design-gemini.jpg?1666386058");
+  /* background-image: url("https://cdnb.artstation.com/p/assets/images/images/055/215/327/large/saiyre-illustration-amp-design-gemini.jpg?1666386058"); */
   /* Center and scale the image properly */
+  background: rgb(0,0,0);
+  background: linear-gradient(90deg, rgba(0,0,0,1) 4%, rgba(225,146,56,1) 73%);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
